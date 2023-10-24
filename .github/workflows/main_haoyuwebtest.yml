@@ -27,6 +27,12 @@ jobs:
           python -m venv venv
           source venv/bin/activate
 
+      - name: Update pip and Python
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade wheel setuptools
+
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 
@@ -65,3 +71,5 @@ jobs:
           app-name: 'haoyuwebtest'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_59EBD71BFAA844749D1095F6EE77F7B3 }}
+
+
