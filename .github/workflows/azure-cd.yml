@@ -1,0 +1,28 @@
+name: Azure CD
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build and deploy to Azure Web App
+        env:
+          AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}
+          AZURE_WEBAPP_PACKAGE_PATH: .
+        run: |
+          az login --service-principal -u ${{ secrets.AZURE_SERVICE_PRINCIPAL }} -p ${{ secrets.AZURE_SERVICE_PRINCIPAL_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+          az webapp deployment source config-zip --resource-group your-resource-group --name $AZURE_WEBAPP_NAME --src $AZURE_WEBAPP_PACKAGE_PATH
