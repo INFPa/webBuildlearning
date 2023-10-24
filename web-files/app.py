@@ -15,7 +15,7 @@ users = {
 # 登录页面
 @app.route('/')
 def login():
-    return render_template('login.html')
+    return render_template('index.html')
 
 # 处理登录请求
 @app.route('/login', methods=['POST'])
