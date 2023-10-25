@@ -3,6 +3,9 @@ import os
 
 app = Flask(__name__)
 
+# 设置模板文件夹路径
+app.template_folder = 'web-files'
+
 # 设置用于加密 session 的密钥，请使用随机生成的密钥
 app.secret_key = os.urandom(24)
 
